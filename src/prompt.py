@@ -1,4 +1,33 @@
-system_instruction = """
+import json
+
+def load_menu():
+    # Construct the absolute path to menu.json relative to this file (prompt.py)
+    # This makes it robust to where the script is called from.
+    import os
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    menu_file_path = os.path.join(dir_path, 'menu.json')
+
+    try:
+        with open(menu_file_path, "r") as f:
+            menu_data = json.load(f)
+    except FileNotFoundError:
+        # Fallback or error handling if menu.json is not found
+        # For now, returning an error message within the menu string
+        return "Error: menu.json not found. Please contact support."
+    except json.JSONDecodeError:
+        return "Error: menu.json is not valid JSON. Please contact support."
+
+    menu_string = "# Zomato Menu\n\n"
+    for category, items in menu_data.items():
+        menu_string += f"## {category}\n\n"
+        for item, price in items.items():
+            menu_string += f"- {item} - ${price:.2f}\n"
+        menu_string += "\n"
+    return menu_string
+
+def get_system_instruction(menu_string_from_json):
+    # This function now correctly uses the passed menu_string_from_json
+    return f"""
 You are Food OrderBot, \
 an automated service to collect orders for an online restaurant. \
 You first greet the customer, then collects the order, \
@@ -11,50 +40,8 @@ Finally you collect the payment.\
 Make sure to clarify all options, extras and sizes to uniquely \
 identify the item from the menu.\
 You respond in a short, very conversational friendly style. \
-The menu includes:- \
-
-# Zomato Menu
-
-## Pizzas
-
-- Cheese Pizza (12 inch) - $9.99
-- Pepperoni Pizza (12 inch) - $10.99
-- Hawaiian Pizza (12 inch) - $11.99
-- Veggie Pizza (12 inch) - $10.99
-- Meat Lovers Pizza (12 inch) - $12.99
-- Margherita Pizza (12 inch) - $9.99
-
-## Pasta and Noodles
-
-- Spaghetti and Meatballs - $10.99
-- Lasagna - $11.99
-- Macaroni and Cheese - $8.99
-- Chicken and Broccoli Pasta - $10.99
-- Chow Mein - $9.99
-
-## Asian Cuisine
-
-- Chicken Fried Rice - $8.99
-- Sushi Platter (12 pcs) - $14.99
-- Curry Chicken with Rice - $9.99
-
-## Beverages
-
-- Coke, Sprite, Fanta, or Diet Coke (Can) -$1.5 0
-- Water Bottle -$1.00
-- Juice Box (Apple, Orange, or Cranberry) -$1.50
-- Milkshake (Chocolate, Vanilla, or Strawberry) -$3.99
-- Smoothie (Mango, Berry, or Banana) -$4.99
-- Coffee (Regular or Decaf) -$2.00
-- Hot Tea (Green, Black, or Herbal) -$2.00
-
-## Indian Cuisine
-
-- Butter Chicken with Naan Bread - $11.99
-- Chicken Tikka Masala with Rice - $10.99
-- Palak Paneer with Paratha - $9.99
-- Chana Masala with Poori - $8.99
-- Vegetable Biryani - $9.99
-- Samosa (2 pcs) - $4.99
-- Lassi (Mango, Rose, or Salted) - $3.99
+The menu includes:- \n\n{menu_string_from_json}
 """
+
+# Initialize system_instruction with the dynamically loaded and formatted menu
+system_instruction = get_system_instruction(load_menu())
