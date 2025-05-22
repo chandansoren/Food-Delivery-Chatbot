@@ -1,0 +1,37 @@
+{
+  "Pizzas": {
+    "Margherita": 10.99,
+    "Pepperoni": 12.99,
+    "Vegetarian": 11.99,
+    "Hawaiian": 13.99
+  },
+  "Pasta and Noodles": {
+    "Spaghetti Carbonara": 14.50,
+    "Fettuccine Alfredo": 13.50,
+    "Penne Arrabbiata": 12.50,
+    "Pad Thai": 15.00,
+    "Ramen": 14.00
+  },
+  "Asian Cuisine": {
+    "Sushi Platter": 25.00,
+    "Dim Sum Basket": 18.00,
+    "Kung Pao Chicken": 16.50,
+    "Sweet and Sour Pork": 17.00,
+    "General Tso's Chicken": 16.00
+  },
+  "Beverages": {
+    "Coca-Cola": 2.50,
+    "Sprite": 2.50,
+    "Fanta": 2.50,
+    "Orange Juice": 3.00,
+    "Apple Juice": 3.00,
+    "Water": 1.50
+  },
+  "Indian Cuisine": {
+    "Butter Chicken": 15.00,
+    "Palak Paneer": 14.00,
+    "Chole Bhature": 12.00,
+    "Biryani": 16.00,
+    "Dal Makhani": 13.00
+  }
+}
