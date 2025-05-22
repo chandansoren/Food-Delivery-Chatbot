@@ -28,9 +28,6 @@ Food-Delivery-Chatbot is an AI-powered conversational assistant designed to stre
 - Error handling and user guidance for edge cases
 - Easily extensible for new features
 
-## Demo
-
-*Add screenshots or a link to a hosted demo if available.*
 
 ## Setup and Installation
 
